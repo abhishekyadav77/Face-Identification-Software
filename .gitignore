@@ -1,0 +1,19 @@
+venv/
+.venv/
+__pycache__/
+*.pyc
+.env
+.streamlit/secrets.toml
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+# private biometric data - never commit
+data/known_faces/*
+data/unauthorized_logs/*
+data/*.csv
+data/settings.json
+!data/known_faces/.gitkeep
+!data/unauthorized_logs/.gitkeep
+
+

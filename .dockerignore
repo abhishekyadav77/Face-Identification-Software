@@ -1,0 +1,13 @@
+venv/
+.venv/
+__pycache__/
+*.pyc
+.git/
+.gitignore
+.vscode/
+.idea/
+.env
+.streamlit/secrets.toml
+data/known_faces/*
+data/unauthorized_logs/*
+data/*.csv

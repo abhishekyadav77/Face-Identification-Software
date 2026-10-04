@@ -1,0 +1,8 @@
+streamlit>=1.50,<3
+pandas>=2.0
+numpy>=1.26
+opencv-python-headless>=4.8
+# Pre-built dlib wheel (no C++ compiler / CMake needed)
+dlib-bin>=19.24
+# Pre-trained dlib face models (landmarks + 128-D face encoder)
+face_recognition_models>=0.3.0
