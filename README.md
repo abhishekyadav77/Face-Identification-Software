@@ -1,74 +1,394 @@
-# Railway Face Rec Pro
+# 🚆 Railway Face Identification Software
 
-Face-recognition access control and attendance system built with Streamlit, OpenCV and dlib.
-Known staff are checked in automatically; unknown faces raise an alert with a snapshot you can review, enroll or dismiss.
+An AI-powered **Face Identification and Attendance Management System** designed to identify registered individuals, record attendance, and detect unauthorized persons using facial recognition.
 
-## Quick start
+The system is built with **Python, Streamlit, OpenCV, and face-recognition** and provides a simple web-based dashboard for face enrollment, identification, attendance tracking, logs, and alerts.
 
-**Requirements:** Python **3.10 - 3.13** (3.12 recommended) and an internet connection for the first install.
+---
 
-| System | Command |
-|---|---|
-| Windows | double-click **`run.bat`** |
-| Linux / macOS | `chmod +x run.sh && ./run.sh` |
+## 📌 Project Overview
 
-Then open **http://localhost:8501**.
+Railway stations and railway organizations require reliable systems for monitoring authorized personnel and maintaining attendance records.
 
-Manual install (any system):
+This project provides a prototype solution that combines **computer vision and face recognition** to:
+
+* Register and enroll authorized individuals.
+* Identify registered individuals using facial features.
+* Automatically record attendance.
+* Detect unknown or unauthorized individuals.
+* Maintain attendance and identification logs.
+* Display alerts for unauthorized detections.
+* Provide a centralized dashboard for monitoring.
+
+> **Note:** This project is developed as an academic/portfolio prototype and is not intended to replace production-grade railway security systems.
+
+---
+
+## ✨ Features
+
+### 👤 Face Enrollment
+
+* Add a person's name and identification details.
+* Capture/upload a facial image.
+* Store enrolled face data locally.
+* Use enrolled faces for future identification.
+
+### 🔍 Face Identification
+
+* Detect faces from images.
+* Compare detected faces with enrolled faces.
+* Display the identified person's information.
+* Handle unknown faces when no matching identity is found.
+
+### 📋 Attendance Management
+
+* Automatically record recognized individuals.
+* Store attendance information with timestamps.
+* View attendance records through the dashboard.
+
+### 🚨 Unauthorized Person Detection
+
+* Detect faces that are not present in the registered database.
+* Record unauthorized detections.
+* Store relevant logs/images locally.
+* Display alerts through the application.
+
+### 📊 Dashboard
+
+The dashboard provides access to:
+
+* Total registered individuals
+* Attendance information
+* Identification activity
+* Unauthorized detection alerts
+* System statistics
+
+### 📜 Logs & Records
+
+The application provides separate views for:
+
+* Attendance records
+* Identification logs
+* Unauthorized detection logs
+* System alerts
+
+### ⚙️ Settings
+
+The application includes configurable settings for managing system behavior and application preferences.
+
+---
+
+## 🛠️ Technology Stack
+
+| Technology       | Purpose                                    |
+| ---------------- | ------------------------------------------ |
+| Python           | Core programming language                  |
+| Streamlit        | Web application interface                  |
+| OpenCV           | Image processing and face detection        |
+| face-recognition | Facial feature extraction and comparison   |
+| NumPy            | Numerical processing                       |
+| Pandas           | Data handling and CSV management           |
+| Docker           | Application containerization               |
+| Git & GitHub     | Version control and source code management |
+
+---
+
+## 📂 Project Structure
+
+```text
+Face-Identification-Software/
+│
+├── app.py
+├── Dockerfile
+├── requirements.txt
+├── README.md
+├── .gitignore
+├── .dockerignore
+│
+├── .streamlit/
+│   └── config.toml
+│
+├── assets/
+│   ├── logo.png
+│   └── style.css
+│
+├── utils/
+│   ├── db_helper.py
+│   ├── live_camera.py
+│   ├── simple_facerec.py
+│   ├── ui_helper.py
+│   └── upload_face.py
+│
+├── views/
+│   ├── dashboard.py
+│   ├── scanner.py
+│   ├── enroll.py
+│   ├── attendance.py
+│   ├── alerts.py
+│   ├── logs.py
+│   └── settings.py
+│
+└── data/
+    ├── known_faces/
+    ├── unauthorized_logs/
+    ├── sounds/
+    └── Images/
+```
+
+> Runtime-generated files such as attendance records, alerts, enrolled face images, and unauthorized-person logs are excluded from Git using `.gitignore`.
+
+---
+
+## 🔄 How the System Works
+
+```text
+                ┌──────────────────┐
+                │   User / Admin   │
+                └────────┬─────────┘
+                         │
+                         ▼
+                ┌──────────────────┐
+                │    Streamlit UI   │
+                └────────┬─────────┘
+                         │
+          ┌──────────────┼──────────────┐
+          ▼              ▼              ▼
+    Face Enrollment  Face Scanner   Dashboard
+          │              │              │
+          ▼              ▼              ▼
+    Known Faces     Face Detection   Records/Stats
+                         │
+                         ▼
+                  Face Recognition
+                         │
+                 ┌───────┴────────┐
+                 ▼                ▼
+             Recognized         Unknown
+                 │                │
+                 ▼                ▼
+             Attendance        Alert/Log
+```
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the Repository
+
 ```bash
+git clone https://github.com/abhishekyadav77/Face-Identification-Software.git
+```
+
+Move into the project directory:
+
+```bash
+cd Face-Identification-Software
+```
+
+---
+
+### 2. Create a Virtual Environment
+
+#### Windows
+
+```powershell
 python -m venv venv
-venv\Scripts\activate          # Windows      |   source venv/bin/activate   (Linux/macOS)
+```
+
+Activate it:
+
+```powershell
+venv\Scripts\activate
+```
+
+#### macOS / Linux
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+> The `venv` folder is for local development only and should **not** be committed to GitHub.
+
+---
+
+### 3. Install Dependencies
+
+```bash
 pip install -r requirements.txt
+```
+
+---
+
+### 4. Run the Application
+
+```bash
 streamlit run app.py
 ```
-No C++ compiler or CMake is needed - `dlib-bin` is a pre-built wheel.
 
-## How to use
-1. **Enroll Person** - enter a name + role and upload / capture ONE clear front-facing photo. Add 2-3 photos (different light) under the same name for better accuracy.
-2. **Live Scanner**
-   - *Camera snapshot*: take a photo with the browser camera (works anywhere, also Docker/cloud).
-   - *Upload photo*: scan an existing image.
-   - *Live webcam (local)*: smooth real-time video with face tracking. Orange = verifying, green = known, red = unknown.
-3. **Unknown Alerts** - authorise & enroll the person from the snapshot, or dismiss a false alarm.
-4. **Detection Logs / Attendance** - filter, search and export CSV; see who is present / not yet seen.
-5. **Settings** - match tolerance, cooldowns, live confirmation frames, siren, snapshots, data purge.
+The application will normally be available at:
 
-## Why it is fast now
-- Camera reading, face detection and the display run in separate threads - the video never waits for recognition.
-- Cheap detection on every frame; the expensive face encoding only for new faces / every few seconds (faces are tracked between frames).
-- Always shows the newest frame (buffer size 1, MJPG, 640x480).
-- A check-in or alarm needs the *same* answer on several consecutive frames (Settings -> Live confirmation) - no false alarms from one bad frame.
-- Enrolled faces are cached; only new/changed photos are re-encoded.
-
-## Project layout
-```
-app.py                  entry point + navigation
-views/                  dashboard, scanner, enroll, logs, alerts, attendance, settings
-utils/simple_facerec.py face engine (dlib)
-utils/live_camera.py    threaded real-time scanner + tracker
-utils/db_helper.py      CSV logs, settings, profile helpers
-utils/upload_face.py    enrollment + photo quality checks
-assets/style.css        UI theme
-data/                   known_faces/, unauthorized_logs/, attendance.csv, alerts.csv, settings.json
+```text
+http://localhost:8501
 ```
 
-## Troubleshooting
-| Problem | Fix |
-|---|---|
-| "Face engine: OFFLINE" | `pip install -r requirements.txt` inside the activated venv; use Python 3.10-3.13. |
-| Browser camera shows nothing | Allow camera permission; use `localhost` or HTTPS. |
-| Live webcam won't open | Close Zoom/Teams/Camera app, try camera index 1, or use the snapshot tab. |
-| A known person is rejected | Add more photos of them; raise tolerance slightly (0.55) in Settings. |
-| A stranger is accepted | Lower tolerance (0.45) in Settings. |
-| `pip` fails on Apple Silicon / Python 3.14 | Use Python 3.12. |
+---
 
-## Docker
+## 🐳 Running with Docker
+
+The project includes a Dockerfile for containerized deployment.
+
+### Build the Docker image
+
 ```bash
-docker build -t railway-face-rec .
-docker run -p 8501:8501 -v face_data:/app/data railway-face-rec
+docker build -t railway-face-identification .
 ```
-(Use the *Camera snapshot* tab in Docker - the server has no webcam.)
 
-## Notes & limits
-- Face data is biometric and personal: `data/` is git-ignored; keep it private and get consent before enrolling people.
-- Recognition is not spoof-proof: a printed photo or a screen can fool any basic 2D system. For real security add liveness detection and use it as a second factor.
+### Run the container
+
+```bash
+docker run -p 8501:8501 railway-face-identification
+```
+
+Then open:
+
+```text
+http://localhost:8501
+```
+
+---
+
+## ☁️ Deployment
+
+The project can be deployed using a Docker-compatible hosting platform such as **Render**.
+
+Recommended deployment flow:
+
+```text
+GitHub Repository
+        ↓
+     Render
+        ↓
+    Dockerfile
+        ↓
+  Streamlit Application
+```
+
+The Dockerfile installs the required system dependencies and Python packages before starting the Streamlit application.
+
+---
+
+## 📷 Camera Usage
+
+The application supports image-based face identification through the web interface.
+
+For local development, OpenCV can access a webcam connected to the computer running the application.
+
+However, when the application is deployed to a cloud server, OpenCV's direct webcam access refers to the **server's hardware**, not the user's laptop or phone camera.
+
+Therefore, the deployed version should use browser-based camera capture or image upload functionality.
+
+---
+
+## ⚠️ Limitations
+
+This project is a prototype and has several limitations:
+
+1. **Face recognition accuracy** can be affected by lighting, camera quality, face angle, distance, and appearance changes.
+
+2. **False positives and false negatives** are possible during identification.
+
+3. **Direct OpenCV webcam access does not work remotely** in the same way as it does on a local computer.
+
+4. **Local file-based storage is not suitable for large-scale deployment.**
+
+5. **Cloud deployment may use temporary storage**, meaning generated attendance records and uploaded face data may not persist after certain server restarts or redeployments unless persistent storage is configured.
+
+6. **Performance depends on available CPU and memory**, particularly when processing multiple faces.
+
+7. **The current system does not provide advanced liveness detection**, so it should not be considered resistant to sophisticated spoofing attacks.
+
+8. **Biometric data requires careful security and privacy management** in any real-world implementation.
+
+9. The system would require a proper database and scalable architecture for deployment across multiple railway locations.
+
+---
+
+## 🔐 Privacy & Security
+
+Facial images and face-recognition data are sensitive information.
+
+For this reason:
+
+* Actual enrolled face images should not be committed to GitHub.
+* Runtime-generated attendance data is excluded using `.gitignore`.
+* Credentials and secrets should be stored using environment variables.
+* Production deployments should use secure databases and appropriate access controls.
+* Real-world deployment should follow applicable privacy, security, and organizational requirements.
+
+---
+
+## 🔮 Future Improvements
+
+Possible future enhancements include:
+
+* [ ] PostgreSQL/MongoDB database integration
+* [ ] Cloud-based persistent storage
+* [ ] Browser-based live camera recognition
+* [ ] Real-time multi-face recognition
+* [ ] Advanced liveness detection
+* [ ] Anti-spoofing mechanisms
+* [ ] Role-based authentication
+* [ ] Admin/user management
+* [ ] Email/SMS alerts
+* [ ] Real-time notifications
+* [ ] Improved recognition accuracy
+* [ ] Multi-station support
+* [ ] Attendance analytics and reports
+* [ ] Scalable cloud deployment
+* [ ] Improved biometric data encryption
+
+---
+
+## 🎯 Use Cases
+
+The prototype can be adapted for:
+
+* Railway employee attendance
+* Staff identification
+* Restricted-area monitoring
+* Office attendance systems
+* Campus security
+* Access-control prototypes
+* Personnel monitoring
+
+---
+
+## 👨‍💻 Author
+
+**Abhishek Kumar Yadav**
+
+B.Tech Computer Science & Engineering
+Lucknow, Uttar Pradesh, India
+
+### Connect with me
+
+* **GitHub:** https://github.com/abhishekyadav77
+* **LinkedIn:** https://www.linkedin.com/in/abhishek-yadav-mzp/
+* **LeetCode:** https://leetcode.com/u/abhishek_yadav_12/
+
+---
+
+## 📄 License
+
+This project is developed for **educational, academic, and portfolio purposes**.
+
+You are free to study and modify the code for learning purposes. For commercial or production use, review the project's dependencies, licenses, privacy requirements, and security considerations first.
+
+---
+
+## ⭐ Acknowledgement
+
+This project combines Python-based computer vision, face recognition, and Streamlit to demonstrate how an AI-assisted identification and attendance system can be developed as a practical software project.
+
+If you find the project useful, consider giving the repository a ⭐ on GitHub.
