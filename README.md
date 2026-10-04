@@ -1,6 +1,6 @@
 # 🚆 Railway Face Identification Software
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-success?style=for-the-badge)](YOUR_LIVE_LINK_HERE)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-success?style=for-the-badge)](https://face-identification-software-dafo.onrender.com)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge\&logo=github)](https://github.com/abhishekyadav77/Face-Identification-Software)
 [![Python](https://img.shields.io/badge/Python-3.12-blue?style=for-the-badge\&logo=python)](https://www.python.org/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-App-red?style=for-the-badge\&logo=streamlit)](https://streamlit.io/)
@@ -15,7 +15,7 @@ The system is built using **Python, Streamlit, OpenCV, and face-recognition** an
 
 ## 🌐 Live Demo
 
-🚀 **[Open Live Application](YOUR_LIVE_LINK_HERE)**
+🚀 **[Open Live Application](https://face-identification-software-dafo.onrender.com)**
 
 > **Note:** The live deployment is intended primarily for demonstration purposes. Browser-based image/camera capture should be used for the online version because direct OpenCV webcam access is designed for local execution.
 
