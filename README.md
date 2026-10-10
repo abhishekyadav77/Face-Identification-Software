@@ -570,8 +570,8 @@ Lucknow, Uttar Pradesh, India
 ### Connect With Me
 
 * 🔗 **GitHub:** https://github.com/abhishekyadav77
-* 💼 **LinkedIn:** https://www.linkedin.com/in/abhishek-yadav-mzp/
-* 💻 **LeetCode:** https://leetcode.com/u/abhishek_yadav_12/
+* 💼 **LinkedIn:** https://www.linkedin.com/in/abhishekyadav77a/
+* 💻 **LeetCode:** https://leetcode.com/u/abhishekyadav77/
 
 ---
 
